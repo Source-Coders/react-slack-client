@@ -27,6 +27,9 @@ class Chat extends React.Component {
     printProps = () => {
         console.log(this.props)
     }
+    handleClick = () => {
+        services.socketService.send("send-ping", "requesting-ping")
+    }
 
     render() {
         const messages = this.props.messages ? this.props.messages : [];
@@ -40,6 +43,7 @@ class Chat extends React.Component {
                 <InputMessage
                     onEnter={this.onEnterPressed}
                 />
+                <button onClick={this.handleClick}>ping-pong</button>
             </div>
         );
     }

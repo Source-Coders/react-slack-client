@@ -1,6 +1,6 @@
 import { Subject } from "rxjs";
 
-function ChatService(userService) {
+function ChatService(userService, socketService) {
     let messages$ = new Subject();
     let joinedChat$ = new Subject();
 
@@ -30,6 +30,9 @@ function ChatService(userService) {
         }
     };
 
+    const onPongReceived = (message) => {
+        console.log('socketService:', socketService)
+    }
     const onMessageReceived = (message) => messages$.next(message);
 
     const onUserJoinedChat = (username) => joinedChat$.next(username);
@@ -41,6 +44,7 @@ function ChatService(userService) {
         onMessagesReceived,
         onMessageReceived,
         onUserJoinedChat,
+        onPongReceived
     });
 }
 
