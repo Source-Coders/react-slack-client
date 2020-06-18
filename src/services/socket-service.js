@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import { Subject } from "rxjs";
 
-function SocketService(chatService, challengeService) {
+function SocketService(chatService) {
     let socket;
     let connected$ = new Subject();
 
@@ -56,16 +56,15 @@ function SocketService(chatService, challengeService) {
             chatService.onMessageReceived(message_received);
         });
 
-        // socket.on("ping", (message)=>{
-        //     console.log('received ping:', message)
-        //     const newmessage = 'pong'
-        //     const event_name = "pong"
-        //     socket.emit(event_name, newmessage)
-        // });
+        socket.on("pinged", (server_message)=>{
+            console.log('received ping:', server_message)
+            const message = 'pong'
+            send("ponged", message)
+        });
 
-        // socket.on("ping-pong-success", (message)=>{
-        //     console.log(message)
-        // });
+        socket.on("ping-pong-success", (message)=>{
+            console.log(message)
+        });
     }
 
     return Object.freeze({

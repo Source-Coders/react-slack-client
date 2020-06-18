@@ -28,7 +28,9 @@ class Chat extends React.Component {
         console.log(this.props)
     }
     handleClick = () => {
-        services.socketService.send("send-ping", "requesting-ping")
+        const event_name = "send-ping"
+        const message = "requesting-ping"
+        services.socketService.send(event_name, message)
     }
 
     render() {
