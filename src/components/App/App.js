@@ -27,18 +27,19 @@ class App extends Component {
 
     componentDidMount() {
         const { changeRoute, setUsername } = this.props;
-        let username = services.storageService.get("username");
-        let isNewUser =  username === null;
-        if (isNewUser) {
-            changeRoute({path:'/enter-username'});
-        }
-        else {
-            this.setupConnectedSubscription();
-            // user exists
-            setUsername(username);
-            //console.log(username)
-            services.socketService.connect({ username: username });
-        }
+        changeRoute({path:"/ping-pong"});
+        // let username = services.storageService.get("username");
+        // let isNewUser =  username === null;
+        // if (isNewUser) {
+        //     changeRoute({path:'/enter-username'});
+        // }
+        // else {
+        //     this.setupConnectedSubscription();
+        //     // user exists
+        //     setUsername(username);
+        //     //console.log(username)
+        //     services.socketService.connect({ username: username });
+        // }
     }
     
     setupConnectedSubscription() {

@@ -37,6 +37,14 @@ function SocketService(chatService) {
             connected$.next(true);
         });
 
+        socket.on("ping-test", () => {
+            send("pong-test", {});
+        });
+
+        socket.on("ping-pong-success", () => {
+            console.log("PING PONG SUCCESS!!!")
+        });
+
         socket.on("connect_error", () => {
             connected$.next(false);
         });
