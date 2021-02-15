@@ -23,9 +23,9 @@ class PendingInvitationsModal extends Component {
 
     handleResponse = (event, invitation, isAccepted) => {
         event.preventDefault();
-        const { respondToInvitation } = this.props;
+        const { respondToInvitation,handlePendingInvitationsModal } = this.props;
         respondToInvitation(invitation, isAccepted);
-        this.handleHide()
+        handlePendingInvitationsModal(false);
     }
 
     render() {

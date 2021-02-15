@@ -34,11 +34,10 @@ class InviteMembersModal extends Component {
             })
     );
 
-    handleSubmit= (values, { setSubmitting}) =>{
+    handleSubmit= (values, { setSubmitting}) => {
         const { org, sendInvites, handleInviteMembersModal } = this.props
         const { invitedUsers } = values
         sendInvites(org.name, invitedUsers)
-            .then(this.handlehide());
         setSubmitting(false)
         handleInviteMembersModal(false)
         
@@ -65,7 +64,7 @@ class InviteMembersModal extends Component {
                                     <div className={inviteMembersDisplay}>
                                         <div className={newUserInput}>
                                             {values.invitedUsers.map((email, index) =>(
-                                                <div key={email} className={newUserDisplay}>
+                                                <div key={index} className={newUserDisplay}>
                                                     <CustomFormInput 
                                                         fieldType="nameDisplay" 
                                                         name={`invitedUsers.${index}`} 
