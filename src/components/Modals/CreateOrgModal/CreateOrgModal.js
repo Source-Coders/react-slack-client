@@ -3,11 +3,9 @@ import { connect } from "react-redux";
 import { actions } from "../../../context";
 import * as Yup from 'yup';
 import { Formik, Form, FieldArray } from "formik";
-
 import CustomModal from '../../UI/CustomModal/CustomModal';
 import CustomButton from '../../UI/CustomButton/CustomButton';
 import CustomFormInput from '../../UI/CustomFormInput/FormInput';
-
 import styles from '../../UI/CustomModal/CustomModal.module.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -89,7 +87,7 @@ class CreateOrgModal extends Component {
                                                             placeholder="react_slack@gmail.com"
                                                             />
                                                         <CustomButton
-                                                            btnType="delete"
+                                                            btntype="delete"
                                                             type="button"
                                                             onClick={() => remove(index)}
                                                         > 
@@ -116,7 +114,7 @@ class CreateOrgModal extends Component {
                             </FieldArray>
                             <CustomButton 
                                 type='submit'
-                                btnType="enter" 
+                                btntype="enter" 
                             >Submit
                             </CustomButton>
                         </Form>

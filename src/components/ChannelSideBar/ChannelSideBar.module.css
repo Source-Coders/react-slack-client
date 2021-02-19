@@ -1,0 +1,93 @@
+.channelSideBar{
+    background-color: #011F26;
+    border-left: 2px solid #02313C; 
+    grid-template-rows: auto 1fr;
+    width:300px;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #02313C;
+    padding: 15px 0px;
+}
+.body{
+    position: relative;
+    padding: 20px 20px 20px 30px;
+}
+
+.sidebarUser {
+    line-height: 0.87;
+    padding-bottom: 3px;
+    margin-left: 1px;
+    font-size: 19px;
+    color: #c3c3c3;
+    font-weight: 800;
+}
+
+.sidebarItem {
+    display: flex;
+    align-items: center;
+    position: relative
+}
+
+.customForm {
+	display: flex;
+	flex-direction: column;
+}
+.remove{
+    margin-left: 10px;
+    background-color: #011f26;
+    color: rgb(187, 15, 15);
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: -3px
+}
+.emailInput{
+    position: relative;
+}
+
+.disable {
+    display: none;
+}
+
+.customButton {
+    font-size: 1rem;
+    font-weight: 500;
+    height: 3rem;
+    width: auto;
+    min-width: 1rem;
+    margin: .5rem .5rem .5rem 0;
+    background-color: rgb(78, 25, 84);
+    color: rgb(216, 212, 207);
+    border: none;
+    border-radius: 4px;
+    padding: 0px 30px;
+    align-self: center;
+}
+
+.customButton:focus , .enter:focus{
+    outline:none;
+}
+
+.customButton:hover {
+    background-color: rgb(16, 106, 82);;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px
+}
+
+.cancel {
+    margin-left: 10px;
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    color: rgb(119, 0, 0);
+    background-color: #011F26;
+    border: none
+}
+
+.cancel:hover {
+    color: rgb(197, 0, 0);
+    background-color: rgb(26, 29, 33);
+}

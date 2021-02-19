@@ -1,7 +1,7 @@
 import io from "socket.io-client";
-import { Subject } from "rxjs";
-import { actions, store } from "../context";
-import { config } from "../Config";
+import {Subject} from "rxjs";
+import {actions, store} from "../context";
+import {config} from "../Config";
 
 function SocketService(chatService) {
     let socket;
@@ -46,54 +46,31 @@ function SocketService(chatService) {
             connected$.next(false);
         });
 
-        socket.on('message-received', message => {
-            console.log("message-received: ", message);
-            console.log(
-                `Sender: ${message.sender},
-                Time Sent: ${message.time_sent},
-                Content: ${message.content}`
-            );
-            store.dispatch(actions.message.messageReceived(message))
+        //ORGS
+        socket.on("new-org-member", (info) => {
+			const { org_name: orgName, org_member: orgMember } = info;
+			console.log(`new-org-member: ${orgName}: ${orgMember}`);
+			store.dispatch(actions.org.addOrgMember(orgName, orgMember));
+        });
+        
+        socket.on("added-to-org", async (orgName) => {
+			console.log("added-to-org", orgName);
+			store.dispatch(actions.org.addedToOrg(orgName));
+			send("join-org", orgName);
+        });
+        
+        socket.on("org-deleted", (orgName) => {
+			console.log("org-deleted", orgName);
+			store.dispatch(actions.org.handleOrgDeleted(orgName));
         });
 
-        socket.on("channel-deleted", info => {
-            console.log("channel-deleted", info);
-            const { org_name: orgName, channel_name: channelName } = info;
-            store.dispatch(actions.channel.channelDeleted(orgName, channelName));
-        });
-
-        socket.on("added-to-channel", async info => {
-            console.log("added-to-channel", info);
-            const orgName = info.org_name;
-            const channel = info.channel;
-            store.dispatch(actions.channel.addedToChannel(orgName, channel));
-            const joinInfo = { "org_name": orgName, "channel_name": channel.name };
-            send("join-channel", joinInfo);
-        });
-
-        socket.on("permissions-updated", () => {
-            console.log("permissions-updated");
-            store.dispatch(actions.permission.fetchPermissions());
-        });
-
-        socket.on("invited-to-org", orgName => {
-            console.log("invited-to-org", orgName);
-            store.dispatch(actions.invitation.fetchInvitations());
-        });
-
-        socket.on("added-to-org", async orgName => {
-            console.log("added-to-org", orgName);
-            store.dispatch(actions.org.addedToOrg(orgName));
-            send("join-org", orgName);
-        });
-
-        socket.on("new-org-member", info => {
-            const { org_name: orgName, org_member: orgMember } = info;
-            console.log(`new-org-member: ${orgName}: ${orgMember}`);
-            store.dispatch(actions.org.addOrgMember(orgName, orgMember));
-        });
-
-        socket.on("org-member-online", info => {
+        socket.on("invited-to-org", (orgName) => {
+			console.log("invited-to-org", orgName);
+			store.dispatch(actions.invitation.fetchInvitations());
+		});
+        
+        //ORG MEMBER ONLINE STATUS
+         socket.on("org-member-online", info => {
             const { org_name: orgName, username } = info;
             console.log(`org-member-online: ${orgName}: ${username}`);
             store.dispatch(actions.org.setOrgMemberOnlineStatus(orgName, username, true));
@@ -105,10 +82,53 @@ function SocketService(chatService) {
             store.dispatch(actions.org.setOrgMemberOnlineStatus(orgName, username, false));
         });
 
-        socket.on("org-deleted", orgName => {
-            console.log("org-deleted", orgName);
-            store.dispatch(actions.org.handleOrgDeleted(orgName));
+        //CHANNELS
+        socket.on("added-to-channel", async (info) => {
+			console.log("added-to-channel", info);
+			const orgName = info.org_name;
+			const channel = info.channel;
+			store.dispatch(actions.channel.addedToChannel(orgName, channel));
+			const joinInfo = { org_name: orgName, channel_name: channel.name };
+			send("join-channel", joinInfo);
         });
+        
+        socket.on("channel-deleted", (info) => {
+			console.log("channel-deleted", info);
+			const { org_name: orgName, channel_name: channelName } = info;
+			store.dispatch(actions.channel.channelDeleted(orgName, channelName));
+            const leaveInfo = { org_name: orgName, channel_name: channelName };
+			send("leave-channel", leaveInfo);
+        });
+        
+        socket.on("new-channel-members", info => {
+			const { org_name: orgName, channel_name: channelName, new_members:newMembers } = info;		
+            console.log(`${newMembers} have been added to channel ${channelName}`);
+            store.dispatch(actions.channel.addMembersToChannel(orgName, channelName, newMembers));			
+        });
+
+        socket.on("channel-member-removed", info => {
+			const { org_name: orgName, channel_name: channelName, username } = info;		
+            console.log(`${username} has been deleted from channel ${channelName}`);
+            store.dispatch(actions.channel.removeChannelMember(orgName, channelName, username));			
+        });
+
+        //MESSAGES
+        socket.on("message-received", (message) => {
+			console.log("message-received: ", message);
+			console.log(
+				`Sender: ${message.sender},
+                Time Sent: ${message.time_sent},
+                Content: ${message.content}`
+			);
+			store.dispatch(actions.message.messageReceived(message));
+		});
+
+        //PERMISSIONS
+        socket.on("permissions-updated", () => {
+			console.log("permissions-updated");
+			store.dispatch(actions.permission.fetchPermissions());
+		});
+		
     };
 
     return Object.freeze({
@@ -116,7 +136,7 @@ function SocketService(chatService) {
         getConnected$,
         connect,
         send,
-        disconnect
+        disconnect,
     });
 }
 

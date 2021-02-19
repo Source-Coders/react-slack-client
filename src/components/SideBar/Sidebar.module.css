@@ -2,6 +2,7 @@
     background-color: #011F26;
     border-right: 2px solid #02313C; 
     grid-template-rows: auto 1fr auto;
+    width: 200px;
 }
 
 .orgNameHeader {
@@ -21,6 +22,7 @@
     grid-row-start: 2;
     grid-row-end:3;
     height: 83vh;
+    padding: 10px;
 }
 
 .sidebarSectionHeading {

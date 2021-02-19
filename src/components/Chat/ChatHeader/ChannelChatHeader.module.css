@@ -2,20 +2,23 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 15px 0px 15px 15px;
+	padding: 9px;
 	border-bottom: 2px solid #02313C;
 }
 
 .chatMemberDisplay {
 	border: white solid 1px;
     border-radius: 25px;
-    padding: 5px;
+    padding: 7px;
 	margin-right: 10px;
     font-size: 1em;
-    position: absolute;
     right: 0;
+	cursor: pointer;
 }
 
+.chatMemberDisplay:hover {
+	background-color: white;
+}
 .nameDisplay {
 	margin: 0;
 }

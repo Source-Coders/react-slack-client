@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { actions } from "../../../context";
 import styles from "./InputMessage.module.css"
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
-		currentInput: state.chat.currentInput	
+		currentInput: state.chat.currentInput,
 	};
 };
 
@@ -17,9 +17,9 @@ const mapActionsToProps = {
 class InputMessage extends Component {
 	handleChange = (event) => {
 		this.props.updateInput(event.target.value);
-    }
+	};
 
-	handleKeyPressed = event => {
+	handleKeyPressed = (event) => {
 		if (event.key === "Enter") {
 			const validMessage = this.props.currentInput;
 
@@ -28,7 +28,7 @@ class InputMessage extends Component {
 				this.props.inputClear();
 			}
 		}
-	}	
+	};
 
 	render(){
 		const { inputOuter, customTextarea } = styles
@@ -45,9 +45,8 @@ class InputMessage extends Component {
 					rows="1"
 				/>
 			</div>
-			)
+		);
 	}
 }
-
 
 export default connect(mapStateToProps, mapActionsToProps)(InputMessage);

@@ -25,7 +25,7 @@
 .delete {
     margin-left: 10px;
     position: absolute;
-    right: 100px;
+    right: 50px;
     top: 8px;
     color: rgb(119, 0, 0);
     background-color: rgb(26, 29, 33);
@@ -46,5 +46,6 @@
 .enter:hover {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px
 }
+
 
 	

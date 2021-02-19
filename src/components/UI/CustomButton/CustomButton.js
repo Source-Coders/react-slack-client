@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from './CustomButton.module.css'
 
-const CustomButton = ({children, btnType, ...otherProps }) => {
+const CustomButton = ({children, btntype, ...otherProps }) => {
     return(
-        <button className={`${styles[btnType] || styles.customButton}`} {...otherProps}>{children}</button>
+        <button className={`${styles[btntype] || styles.customButton}`} {...otherProps}>{children}</button>
     )
 }
 

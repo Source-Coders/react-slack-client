@@ -1,13 +1,19 @@
 import React from "react";
-import styles from "./ChannelChatHeader.module.css"
+import styles from "./ChannelChatHeader.module.css";
 
-function ChannelChatHeader({channelName, numUsers}){
-	const membersLabel = numUsers > 1 ? "members" : "member";
-	const { chatHeader, chatMemberDisplay, nameDisplay } = styles
-	return(
+function ChannelChatHeader(props) {
+	const { chatHeader, chatMemberDisplay, nameDisplay } = styles;
+	const { showChannelSideBar, toggleChannelSideBar, channelName, numberOfUsers } = props;
+	const membersLabel = numberOfUsers > 1 ? "members" : "member";
+	
+	return (
 		<div className={chatHeader}>
 			<h1 className={nameDisplay}>{`# ${channelName}`}</h1>
-			<div className={chatMemberDisplay}>{`${numUsers} ${membersLabel}`}</div>
+			<div
+				className={chatMemberDisplay}
+				onClick={() => toggleChannelSideBar(!showChannelSideBar)}
+			>
+				{`${numberOfUsers} ${membersLabel}`}</div>
 		</div>
 	);
 }

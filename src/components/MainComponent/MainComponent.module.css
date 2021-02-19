@@ -5,8 +5,7 @@
 .mainWrapper {
     height: 100%;
     width: 100%;
-    display: grid;
-    grid-template-columns: 75px 200px 1fr;
+    display: flex;
     position: relative;
 }
 
